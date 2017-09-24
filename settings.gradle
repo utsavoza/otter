@@ -1,1 +1,1 @@
-include ':app', ':otter-annotations', ':otter-processor'
+include ':sample', ':otter-annotations', ':otter-processor'
