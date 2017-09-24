@@ -51,7 +51,7 @@ class BarActivity extends Activity {
 
 Also
 -----
-TODO: Include a helper class that provides a familiar API that allows chaining multiple calls 
+TODO: Include a helper class which provides a familiar API that allows chaining multiple calls 
 inorder to create a `Bundle` object. It would be better to provide a way to combine the two 
 approaches in some way.
 
@@ -61,7 +61,7 @@ class MainActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     
-    Bundle bundle = Otter.newBundle()
+    Bundle bundle = OtterBundle.newBundle()
       .putChar(CHAR_KEY, "a")
       .putByte(BYTE_KEY, 127)
       .putShort(SHORT_KEY, 32767)
