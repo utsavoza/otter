@@ -12,6 +12,7 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
+/** Container class for the set annotated activities. */
 public class OtterActivitySet {
 
   private static final ClassName INTENT = ClassName.get("android.content", "Intent");
@@ -25,10 +26,7 @@ public class OtterActivitySet {
   }
 
   public void addActivity(OtterActivityClass activity) {
-    OtterActivityClass activityClass = activityMap.get(activity.getQualifiedClassName());
-    if (activityClass == null) {
-      activityMap.put(activity.getQualifiedClassName(), activity);
-    }
+    activityMap.putIfAbsent(activity.getQualifiedClassName(), activity);
   }
 
   public JavaFile writeFactory(Elements elementUtils) {
@@ -40,6 +38,7 @@ public class OtterActivitySet {
     TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder(factoryClassName)
         .addModifiers(Modifier.PUBLIC, Modifier.FINAL);
 
+    // Generate static factory for each annotated activity
     for (Map.Entry<String, OtterActivityClass> entry : activityMap.entrySet()) {
       OtterActivityClass activityClass = entry.getValue();
       String methodName = "start" + activityClass.getSimpleClassName();

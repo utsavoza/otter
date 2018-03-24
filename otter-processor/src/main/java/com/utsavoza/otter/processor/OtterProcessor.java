@@ -27,8 +27,7 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
-@AutoService(Processor.class)
-public class OtterProcessor extends AbstractProcessor {
+@AutoService(Processor.class) public final class OtterProcessor extends AbstractProcessor {
 
   private static final String ACTIVITY_TYPE = "android.app.Activity";
 
@@ -39,7 +38,6 @@ public class OtterProcessor extends AbstractProcessor {
 
   @Override public synchronized void init(ProcessingEnvironment processingEnv) {
     super.init(processingEnv);
-
     elementUtils = processingEnv.getElementUtils();
     typeUtils = processingEnv.getTypeUtils();
     filer = processingEnv.getFiler();
@@ -66,9 +64,9 @@ public class OtterProcessor extends AbstractProcessor {
 
   @Override public boolean process(Set<? extends TypeElement> types, RoundEnvironment env) {
     Map<TypeElement, OtterActivityClass> activityMap = findTargetActivities(env);
-    OtterActivitySet activitySet =
-        new OtterActivitySet(OtterActivity.class.getCanonicalName());  // same name as annotation?
+    OtterActivitySet activitySet = new OtterActivitySet(OtterActivity.class.getCanonicalName());
 
+    // process all the annotated activities
     for (Map.Entry<TypeElement, OtterActivityClass> entry : activityMap.entrySet()) {
       OtterActivityClass activity = entry.getValue();
       activitySet.addActivity(activity);
@@ -84,6 +82,7 @@ public class OtterProcessor extends AbstractProcessor {
     return true;
   }
 
+  /** Look for valid annotated activities */
   private Map<TypeElement, OtterActivityClass> findTargetActivities(RoundEnvironment env) {
     Map<TypeElement, OtterActivityClass> activityMap = new LinkedHashMap<>();
 
@@ -105,10 +104,10 @@ public class OtterProcessor extends AbstractProcessor {
       OtterActivityClass activity = new OtterActivityClass(typeElement);
       activityMap.put(typeElement, activity);
     }
-
     return activityMap;
   }
 
+  /** Checks whether the annotated class extends an {@link Activity} */
   private boolean isValidAnnotatedActivity(TypeElement typeElement) {
     TypeElement parentType = findParentType(typeElement);
     return parentType.toString().equals(ACTIVITY_TYPE);
@@ -121,11 +120,9 @@ public class OtterProcessor extends AbstractProcessor {
       if (superClassType.getKind() == TypeKind.NONE) {
         return currentClass;
       }
-
       if (superClassType.toString().equals(ACTIVITY_TYPE)) {
         return (TypeElement) typeUtils.asElement(superClassType);
       }
-
       currentClass = (TypeElement) typeUtils.asElement(superClassType);
     }
   }

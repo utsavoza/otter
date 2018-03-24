@@ -2,6 +2,7 @@ package com.utsavoza.otter.processor;
 
 import javax.lang.model.element.TypeElement;
 
+/** Represents an annotated activity */
 public class OtterActivityClass {
 
   private TypeElement annotatedClass;
