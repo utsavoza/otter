@@ -6,7 +6,7 @@ methods to create intents and start activities.
 
 Purpose
 -------
-The project is just an excuse to explore the annotation processing API in Java. Simultaneous effort
+The project serves as an excuse to explore the annotation processing API in Java. Simultaneous effort
 was also to make this project somewhat useful.
 
 ```java
