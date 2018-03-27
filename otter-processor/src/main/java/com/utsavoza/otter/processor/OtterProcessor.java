@@ -27,7 +27,8 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
-@AutoService(Processor.class) public final class OtterProcessor extends AbstractProcessor {
+@AutoService(Processor.class)
+public final class OtterProcessor extends AbstractProcessor {
 
   private static final String ACTIVITY_TYPE = "android.app.Activity";
 
